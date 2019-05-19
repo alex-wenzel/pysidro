@@ -51,7 +51,7 @@ class OBA:
     Query Feed
     """
 
-    def query(self):
+    def query(self, qrtype, qrtes):
         """
         Issues queries to the three realtime update feeds and returns
         three DataFrames with the resulting data
@@ -63,8 +63,11 @@ class OBA:
 
         trip_updates_df = self.parse_trip_updates(trip_updates_pb)
         #alerts_df = self.parse_system_alerts(alert_pb)
-
-        print(trip_updates_df[trip_updates_df['rte_id']=="30"])  #Debug
+      
+        trip_updates_df['veh_id'] = trip_updates_df['veh_id'].astype(int)
+        trip_updates_df['rte_id'] = trip_updates_df['rte_id'].astype(int)
+        print(trip_updates_df[trip_updates_df[qrtype].isin(qrtes)].sort_values(by="veh_id"))  #Debug
+        #print(trip_updates_df[trip_updates_df['delay']>0])
         sys.exit(1)  #Debug
 
         return trip_updates_df, vehicle_pos_df, alerts_df
@@ -104,12 +107,22 @@ class OBA:
             tu_d['ns_id'].append(e.trip_update.stop_time_update[0].stop_id)
             tu_d['ns_depart'].append(e.trip_update.stop_time_update[0].departure.time)
             tu_d['veh_id'].append(e.trip_update.vehicle.id)
-            tu_d['delay'].append(e.trip_update.delay/60.0)
+            tu_d['delay'].append(e.trip_update.delay)#/60.0)
             tu_d['ts'].append(e.trip_update.timestamp)
         return pd.DataFrame(tu_d).set_index('trip_id')
 
 
 if __name__ == "__main__":
     print("OBA.py")
+    qrtype = sys.argv[1]
+    qrtes = sys.argv[2].split(',')
+    if len(qrtes) > 1 or "-" in qrtes[0]:
+        for qr in qrtes:
+            if type(qr) == int:
+                continue
+            elif str(qr)[-1] == "-":
+                qrtes += list(range(int(qr[:-1]+"00"), int(qr[:-1]+"99")))
+            else:
+                qrtes += int(qr)
     oba = OBA("private_conf.txt")
-    oba.query()
+    oba.query(qrtype, qrtes)

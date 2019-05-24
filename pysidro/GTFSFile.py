@@ -9,4 +9,4 @@ class GTFSFile:
         """
         Read data as a DataFrame
         """
-        self.data = read_csv(file_path)
+        self.data = read_csv(file_path, dtype=str)

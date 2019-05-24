@@ -3,20 +3,20 @@
 The simulation consists of sequential execution of any of the
 following events.
 
-## `Vehicle` events
+## Vehicle events
 
-### `StartTrip`
+### StartTrip
 
-### `EndTrip`
+### EndTrip
 
-### `StartDeadhead`
+### StartDeadhead
 
-## `Passenger` events
+## Passenger events
 
-### `EnterSystem`
+### EnterSystem
 
 Passenger arrives at a `Stop`. Destination should be set and feasible.
 
-### `EnterVehicle`
+### EnterVehicle
 
-### `ExitVehicle`
+### ExitVehicle

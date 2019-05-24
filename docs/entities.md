@@ -9,8 +9,9 @@ according to a schedule.
 
 **Fields**
 
-- `id` (string): A unique identifier for the `Vehicle` in the simulation
-- `capacity` (int): The maximum number of `Passenger`s that can ride a `Vehicle`
+- `id` (*string*): A unique identifier for the `Vehicle` in the simulation
+- `capacity` (*int*): The maximum number of `Passenger`s that can ride a
+                    `Vehicle`
 
 ## `Passenger`
 

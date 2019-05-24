@@ -1,5 +1,5 @@
 """
-This script implements an interface with the One Bus Away API to pull and 
+This script implements an interface with the One Bus Away API to pull and
 parse data from an OBA GTFS real-time feed, This class also implements
 parsers to return all retrieved data as useful pandas DataFrames
 """
@@ -16,10 +16,10 @@ class OBA:
     """
     def __init__(self, conf_path):
         """
-        Takes a path to a config file with 2 urls for trip updates and system 
+        Takes a path to a config file with 2 urls for trip updates and system
         alerts as well as a 3rd line for an API key and test-queries the feed.
 
-            conf_path (str): Path to a config file with format as 
+            conf_path (str): Path to a config file with format as
                                 described above
 
             returns: None
@@ -41,7 +41,7 @@ class OBA:
 
             returns: None
         """
-        conflines = [line.strip('\n') 
+        conflines = [line.strip('\n')
                         for line in open(self.conf_path).readlines()]
         self.trip_update_url = conflines[0]
         self.system_alert_url = conflines[1]
@@ -63,7 +63,7 @@ class OBA:
 
         trip_updates_df = self.parse_trip_updates(trip_updates_pb)
         #alerts_df = self.parse_system_alerts(alert_pb)
-      
+
         trip_updates_df['veh_id'] = trip_updates_df['veh_id'].astype(int)
         trip_updates_df['rte_id'] = trip_updates_df['rte_id'].astype(int)
         print(trip_updates_df[trip_updates_df[qrtype].isin(qrtes)].sort_values(by="veh_id"))  #Debug
@@ -109,6 +109,7 @@ class OBA:
             tu_d['veh_id'].append(e.trip_update.vehicle.id)
             tu_d['delay'].append(e.trip_update.delay)#/60.0)
             tu_d['ts'].append(e.trip_update.timestamp)
+
         return pd.DataFrame(tu_d).set_index('trip_id')
 
 
@@ -124,5 +125,5 @@ if __name__ == "__main__":
                 qrtes += list(range(int(qr[:-1]+"00"), int(qr[:-1]+"99")))
             else:
                 qrtes += int(qr)
-    oba = OBA("private_conf.txt")
+    oba = OBA("../../private_conf.txt")
     oba.query(qrtype, qrtes)

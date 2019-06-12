@@ -9,4 +9,4 @@ class Agency(GTFSFile):
         """
         Instantiate Agency representation
         """
-        GTFSFile.__init__(self, file_path)
+        GTFSFile.__init__(self, file_path, index_name="agency_id")

@@ -9,4 +9,4 @@ class Calendar(GTFSFile):
         """
         Instantiate calendar representation
         """
-        GTFSFile.__init__(self, file_path)
+        GTFSFile.__init__(self, file_path, index_name="service_id")

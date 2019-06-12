@@ -9,4 +9,4 @@ class Shapes(GTFSFile):
         """
         Instantiate shapes representation
         """
-        GTFSFile.__init__(self, file_path)
+        GTFSFile.__init__(self, file_path, index_name="shape_id")

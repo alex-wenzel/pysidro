@@ -9,4 +9,4 @@ class FareRules(GTFSFile):
         """
         Instantiate fare_rules representation
         """
-        GTFSFile.__init__(self, file_path)
+        GTFSFile.__init__(self, file_path, index_name="fare_id")

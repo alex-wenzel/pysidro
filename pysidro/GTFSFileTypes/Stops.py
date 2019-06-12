@@ -9,4 +9,4 @@ class Stops(GTFSFile):
         """
         Instantiate stops representation
         """
-        GTFSFile.__init__(self, file_path)
+        GTFSFile.__init__(self, file_path, index_name="stop_id")

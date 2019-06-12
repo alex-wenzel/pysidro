@@ -9,4 +9,4 @@ class Trips(GTFSFile):
         """
         Instantiate trips representation
         """
-        GTFSFile.__init__(self, file_path)
+        GTFSFile.__init__(self, file_path, index_name="trip_id")

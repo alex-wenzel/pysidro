@@ -14,5 +14,9 @@ class GTFSFile:
             self.data = self.data.set_index(index_name)
 
     def __iter__(self):
-        for item in self.data.index:
-            yield item
+        for i, row in self.data.iterrows():
+            yield row
+
+    def enumerate(self):
+        for i, row in self.data.iterrows():
+            yield i, row
